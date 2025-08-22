@@ -1,4 +1,4 @@
-package br.com.caiquebrener.job_vacancy_manager.exceptions;
+package br.com.caiquebrener.job_vacancy_manager.exceptions.handler;
 
 import br.com.caiquebrener.job_vacancy_manager.exceptions.dto.ErrorMessageDTO;
 import org.springframework.context.MessageSource;
