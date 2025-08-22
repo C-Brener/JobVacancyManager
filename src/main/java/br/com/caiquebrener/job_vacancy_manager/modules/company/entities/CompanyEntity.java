@@ -11,7 +11,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Entity(name = "company")
@@ -26,7 +25,7 @@ public class CompanyEntity {
     @Pattern(regexp = "^\\S+$", message = "The field must not contain a blank space")
     private String userName;
 
-    @Email(message =  "The field must not contain a valid email address")
+    @Email(message = "The field must not contain a valid email address")
     private String email;
 
     @Length(min = 10, max = 100)
