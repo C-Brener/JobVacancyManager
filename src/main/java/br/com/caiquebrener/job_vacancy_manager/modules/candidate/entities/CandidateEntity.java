@@ -1,4 +1,4 @@
-package br.com.caiquebrener.job_vacancy_manager.modules.candidate.models;
+package br.com.caiquebrener.job_vacancy_manager.modules.candidate.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

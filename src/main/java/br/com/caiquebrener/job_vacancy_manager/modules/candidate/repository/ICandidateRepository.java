@@ -1,6 +1,6 @@
 package br.com.caiquebrener.job_vacancy_manager.modules.candidate.repository;
 
-import br.com.caiquebrener.job_vacancy_manager.modules.candidate.models.CandidateEntity;
+import br.com.caiquebrener.job_vacancy_manager.modules.candidate.entities.CandidateEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

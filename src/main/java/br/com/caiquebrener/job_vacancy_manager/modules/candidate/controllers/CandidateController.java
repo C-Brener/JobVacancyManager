@@ -1,6 +1,6 @@
 package br.com.caiquebrener.job_vacancy_manager.modules.candidate.controllers;
 
-import br.com.caiquebrener.job_vacancy_manager.modules.candidate.models.CandidateEntity;
+import br.com.caiquebrener.job_vacancy_manager.modules.candidate.entities.CandidateEntity;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.usecases.CreateCandidateUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
