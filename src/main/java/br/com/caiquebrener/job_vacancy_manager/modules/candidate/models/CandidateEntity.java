@@ -1,16 +1,25 @@
 package br.com.caiquebrener.job_vacancy_manager.modules.candidate.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@Entity(name = "candidate")
 public class CandidateEntity {
 
-    private UUID id = UUID.randomUUID();
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
 
     @Pattern(regexp = "^\\S+$", message = "The field must not contain a blank space")
@@ -23,4 +32,7 @@ public class CandidateEntity {
     private String password;
     private String description;
     private String curriculum;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }
