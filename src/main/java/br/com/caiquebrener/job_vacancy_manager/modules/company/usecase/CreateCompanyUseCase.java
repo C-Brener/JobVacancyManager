@@ -2,7 +2,7 @@ package br.com.caiquebrener.job_vacancy_manager.modules.company.usecase;
 
 import br.com.caiquebrener.job_vacancy_manager.exceptions.exceptions.UserFoundException;
 import br.com.caiquebrener.job_vacancy_manager.modules.company.entities.CompanyEntity;
-import br.com.caiquebrener.job_vacancy_manager.modules.company.repository.CompanyRepository;
+import br.com.caiquebrener.job_vacancy_manager.modules.company.repository.ICompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class CreateCompanyUseCase {
 
     @Autowired
-    private CompanyRepository repository;
+    private ICompanyRepository repository;
 
     public CompanyEntity execute(CompanyEntity entity) {
         repository
