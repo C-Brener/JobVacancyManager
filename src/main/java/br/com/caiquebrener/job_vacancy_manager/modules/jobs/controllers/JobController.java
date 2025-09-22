@@ -3,6 +3,13 @@ package br.com.caiquebrener.job_vacancy_manager.modules.jobs.controllers;
 import br.com.caiquebrener.job_vacancy_manager.modules.company.dto.CreateJobDTO;
 import br.com.caiquebrener.job_vacancy_manager.modules.jobs.entities.JobEntity;
 import br.com.caiquebrener.job_vacancy_manager.modules.jobs.usecase.CreateJobUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +30,21 @@ public class JobController {
 
     @PostMapping
     @PreAuthorize("hasRole('COMPANY')")
+    @Tag(
+            name = "Jobs",
+            description = "Information about the jobs"
+    )
+    @Operation(
+            summary = "Register Jobs",
+            description = "This function is responsible for register jobs inside the company"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    content = {
+                            @Content(array = @ArraySchema(schema = @Schema(implementation = JobEntity.class)))
+                    })
+    })
     public ResponseEntity<Object> create(
             @Valid @RequestBody CreateJobDTO dto,
             HttpServletRequest request
