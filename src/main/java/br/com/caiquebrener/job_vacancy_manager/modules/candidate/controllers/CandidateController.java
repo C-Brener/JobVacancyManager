@@ -1,5 +1,6 @@
 package br.com.caiquebrener.job_vacancy_manager.modules.candidate.controllers;
 
+import br.com.caiquebrener.job_vacancy_manager.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.entities.CandidateEntity;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.usecases.CreateCandidateUseCase;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.usecases.ListAllJobsByFilterUseCase;
@@ -50,6 +51,26 @@ public class CandidateController {
 
     @GetMapping
     @PreAuthorize("hasRole('CANDIDATE')")
+    @Tag(
+            name = "Candidate",
+            description = "Information about the candidate"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    content = {
+                            @Content(array = @ArraySchema(schema = @Schema(implementation = ProfileCandidateResponseDTO.class)))
+                    })
+            ,
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "User not found")
+    })
+    @Operation(
+            summary = "Candidate profile",
+            description = "This function is responsible for researching all information about candidate's profile"
+    )
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Object> get(HttpServletRequest request) {
         var idCandidate = request.getAttribute("candidate_id");
         try {
