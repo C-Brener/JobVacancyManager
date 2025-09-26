@@ -32,6 +32,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/candidate/")
+@Tag(
+        name = "Candidate",
+        description = "Information about the candidate"
+)
 public class CandidateController {
 
     @Autowired
@@ -44,6 +48,17 @@ public class CandidateController {
     private ListAllJobsByFilterUseCase jobsByFilterUseCase;
 
     @PostMapping
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    content = {
+                            @Content(array = @ArraySchema(schema = @Schema(implementation = CandidateEntity.class)))
+                    })
+            ,
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "User already exists")
+    })
     public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity candidate) {
         var result = createCandidateUseCase.execute(candidate);
         return ResponseEntity.ok(result);
@@ -51,10 +66,6 @@ public class CandidateController {
 
     @GetMapping
     @PreAuthorize("hasRole('CANDIDATE')")
-    @Tag(
-            name = "Candidate",
-            description = "Information about the candidate"
-    )
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -83,10 +94,6 @@ public class CandidateController {
 
     @GetMapping("job")
     @PreAuthorize("hasRole('CANDIDATE')")
-    @Tag(
-            name = "Candidate",
-            description = "Information about the candidate"
-    )
     @Operation(
             summary = "List of available positions for the candidate",
             description = "This function is responsible for listing all available vacancies based on the filter."

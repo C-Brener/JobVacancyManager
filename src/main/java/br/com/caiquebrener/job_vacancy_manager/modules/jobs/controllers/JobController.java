@@ -25,16 +25,16 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/job/")
+@Tag(
+        name = "Jobs",
+        description = "Information about the jobs"
+)
 public class JobController {
     @Autowired
     private CreateJobUseCase useCase;
 
     @PostMapping
     @PreAuthorize("hasRole('COMPANY')")
-    @Tag(
-            name = "Jobs",
-            description = "Information about the jobs"
-    )
     @Operation(
             summary = "Register Jobs",
             description = "This function is responsible for register jobs inside the company"
