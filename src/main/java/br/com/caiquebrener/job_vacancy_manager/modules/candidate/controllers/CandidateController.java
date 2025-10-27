@@ -2,6 +2,7 @@ package br.com.caiquebrener.job_vacancy_manager.modules.candidate.controllers;
 
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.entities.CandidateEntity;
+import br.com.caiquebrener.job_vacancy_manager.modules.candidate.usecases.ApplyJobCandidateUseCase;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.usecases.CreateCandidateUseCase;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.usecases.ListAllJobsByFilterUseCase;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.usecases.ProfileCandidateUseCase;
@@ -46,6 +47,9 @@ public class CandidateController {
 
     @Autowired
     private ListAllJobsByFilterUseCase jobsByFilterUseCase;
+
+    @Autowired
+    private ApplyJobCandidateUseCase applyJobCandidateUseCase;
 
     @PostMapping
     @ApiResponses({
@@ -108,5 +112,17 @@ public class CandidateController {
     @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<List<JobEntity>> findJobByFilter(@RequestParam String filter) {
         return ResponseEntity.ok(jobsByFilterUseCase.execute(filter));
+    }
+
+    @PostMapping("job/apply")
+    @PreAuthorize("hasRole('CANDIDATE')")
+    @Operation(
+            summary = "Apply Job By candidateId"
+    )
+    @SecurityRequirement(name = "jwt_auth")
+    public ResponseEntity<Object> applyJob(HttpServletRequest request, @RequestBody UUID jobId) {
+        var idCandidate =UUID.fromString(request.getAttribute("candidate_id").toString()) ;
+        var result = applyJobCandidateUseCase.execute(idCandidate, jobId);
+        return ResponseEntity.ok().body(result);
     }
 }
