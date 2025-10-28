@@ -1,5 +1,6 @@
 package br.com.caiquebrener.job_vacancy_manager.modules.candidate.usecases;
 
+import br.com.caiquebrener.job_vacancy_manager.exceptions.exceptions.UserNotFoundException;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.caiquebrener.job_vacancy_manager.modules.candidate.repository.ICandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,7 @@ public class ProfileCandidateUseCase {
     private ICandidateRepository repository;
 
     public ProfileCandidateResponseDTO execute(UUID idCandidate) {
-        var candidate = repository.findById(idCandidate).orElseThrow(() -> {
-            throw new UsernameNotFoundException("User not found");
-        });
+        var candidate = repository.findById(idCandidate).orElseThrow(UserNotFoundException::new);
         return ProfileCandidateResponseDTO
                 .builder()
                 .description(candidate.getDescription())
