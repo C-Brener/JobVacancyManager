@@ -23,6 +23,7 @@ public class ProfileCandidateUseCase {
                 .email(candidate.getEmail())
                 .username(candidate.getUserName())
                 .id(candidate.getId())
-                .name(candidate.getName()).build();
+                .name(candidate.getName())
+                .build();
     }
 }
