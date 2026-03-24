@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.caiquebrener</groupId>
 	<artifactId>job_vacancy_manager</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>job_vacancy_manager</name>
 	<description>A project developed during the study at rocketseat</description>
 	<url/>
