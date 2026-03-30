@@ -23,3 +23,11 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
+      - name: Build Project
+        run: mvn clean install
+      - name: Login Docker
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: Build Docker Image
+        run: docker build -t caiquebrener/job_vacancy_manager .
+      - name: Publish Image
+        run: docker push caiquebrener/job_vacancy_manager
