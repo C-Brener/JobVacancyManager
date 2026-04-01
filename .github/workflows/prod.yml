@@ -31,3 +31,13 @@ jobs:
         run: docker build -t caiquebrener/job_vacancy_manager .
       - name: Publish Image
         run: docker push caiquebrener/job_vacancy_manager
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image docker hub
+        run: docker pull caiquebrener/job_vacancy_manager:latest
+      - name: Remove Container
+        run: docker rm -f job_vacancy_manager
+      - name: Run Docker Container
+        run: docker run -d -p 8080:8080 -e DATABASE_URL=${{ secrets.DATABASE_URL }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} --name job_vacancy_manager caiquebrener/job_vacancy_manager
