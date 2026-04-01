@@ -34,19 +34,18 @@ jobs:
   deploy:
     needs: build
     runs-on: [ self-hosted, Linux, X64 ]
-
     steps:
       - name: Pull image docker hub
         run: docker pull caiquebrener/job_vacancy_manager:latest
-
       - name: Remove Container
         run: docker rm -f job_vacancy_manager || true
-
       - name: Run Docker Container
         run: |
           docker run -d -p 8080:8080 \
           -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
           -e DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' \
           -e DATABASE_USERNAME='${{ secrets.DATABASE_USERNAME }}' \
+          -e JWT_SECRET_CANDIDATE='${{ secrets.JWT_SECRET_CANDIDATE }}' \
+          -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
           --name job_vacancy_manager \
           caiquebrener/job_vacancy_manager:latest
